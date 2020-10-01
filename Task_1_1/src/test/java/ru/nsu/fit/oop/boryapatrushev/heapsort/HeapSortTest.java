@@ -25,7 +25,7 @@ public class  HeapSortTest {
      * @param array is input array
      * @return true if array sorted; otherwise - false
      */
-    public static boolean isSorted(int[] array) {
+    private static boolean isSorted(int[] array) {
 
         for (int i = 1; i < array.length; i++) {
             if (array[i] < array[i-1])
@@ -55,15 +55,25 @@ public class  HeapSortTest {
     @Test
     public void test3() {
         int[] array ={1,2,3,4,5,6,7,8,9,10};
+        int[] ans_array ={1,2,3,4,5,6,7,8,9,10};
         HeapSort.sort(array);
-        Assert.assertTrue(isSorted(array));
+        Assert.assertArrayEquals(array, ans_array);
     }
 
     @Test
     public void test4() {
         int[] array ={10,9,8,7,6,5,4,3,2,1};
+        int[] ans_array ={1,2,3,4,5,6,7,8,9,10};
         HeapSort.sort(array);
-        Assert.assertTrue(isSorted(array));
+        Assert.assertArrayEquals(array, ans_array);
+    }
+
+    @Test
+    public void test5() {
+        int[] array ={-10,-100,-345,0,1000,50,23,-1};
+        int[] ans_array ={-345,-100,-10,-1,0,23,50,1000};
+        HeapSort.sort(array);
+        Assert.assertArrayEquals(array, ans_array);
     }
 
 }
