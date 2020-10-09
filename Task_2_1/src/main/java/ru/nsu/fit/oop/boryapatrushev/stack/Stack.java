@@ -26,7 +26,9 @@ public class Stack<T> implements Iterable<T> {
 
 
     public T pop() {
-        if (elements.isEmpty()) { throw new NoSuchElementException("Stack is Empty"); }
+        if (elements.isEmpty()) { 
+            throw new NoSuchElementException("Stack is Empty"); 
+        }
 
         return elements.remove(elements.size() - 1);
     }
@@ -59,7 +61,9 @@ public class Stack<T> implements Iterable<T> {
         }
         @Override
         public T next() {
-            if (!hasNext()) { throw new NoSuchElementException("Stack underflow"); }
+            if (!hasNext()) { 
+                throw new NoSuchElementException("Stack underflow"); 
+            }
 
 
             return (T) elements.get(currentIndex--);
