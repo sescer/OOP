@@ -1,72 +1,95 @@
 package ru.nsu.fit.oop.boryapatrushev.stack;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.NoSuchElementException;
 
 /**
  * This class implements stack.
- *Also it includes push,pop & size functions.
  *
  * @param <T> it's some data type
  */
+public class Stack<T> implements Iterable {
 
-public class Stack<T> implements Iterable<T> {
-    private final List<T> elements;
+    private final int maxSize;
+    private int top = -1;
+    private final T[] stackArray;
 
-    public Stack() {
-        elements = new ArrayList<>();
-    }
+    public Iterator iterator() { return new StackIterator();}
 
-
-    public void push(T item) {
-        elements.add(item);
-    }
-
-
-    public T pop() {
-        if (elements.isEmpty()) { 
-            throw new NoSuchElementException("Stack is Empty"); 
-        }
-
-        return elements.remove(elements.size() - 1);
-    }
-
-
-    public int size() {
-        return elements.size();
+    @SuppressWarnings("unchecked")
+    public Stack(int size) {
+        this.maxSize = size;
+        this.stackArray = (T[]) new Object[size];
     }
 
     /**
-     *
-     * @return an iterator over the stack.
-     *
-     *Iterator iterates through the objects on the stack in LIFO order.
+     * Push element on top of stack
+     * @param elem for pushing
      */
-    @Override
-    public Iterator<T> iterator() {
-        return new StackIterator<>(size() - 1);
+    public void push (T elem) {
+        if(!isFull()) {
+            stackArray[++top] = elem;
+        }
+        else {
+            throw new StackSizeLimitException("Stack is full!");
+        }
     }
 
-    private class StackIterator<T> implements Iterator<T> {
-        int currentIndex;
+    /**
+     * Pop element from top of stack
+     * @return if stack is not empty- returns element, otherwise StackSizeLimitException
+     */
+    public T pop() {
+        if(!isEmpty()) {
+            T result = this.stackArray[top];
+            this.stackArray[top] = null;
+            this.top--;
+            return result;
+        }
+        else {
+            throw new StackSizeLimitException("Stack is empty");
+        }
+    }
 
-        public StackIterator(int index) {
-            currentIndex = index;
-        }
-        @Override
-        public boolean hasNext() {
-            return currentIndex >= 0;
-        }
-        @Override
+    /**
+     * Check if stack is empty
+     * @return returns true if stack is empty, otherwise false
+     */
+    public boolean isEmpty() {
+        return (top == -1);
+    }
+
+    /**
+     * Check if stack size equals to number of elements
+     * @return returns true if stack is full, otherwise false
+     */
+    public boolean isFull() {
+        return (top == maxSize - 1);
+    }
+
+    /**
+     * Returns current number of elements in stack
+     * @return integer value of number of current elements in stack
+     */
+    public int count() {
+        return top + 1;
+    }
+
+
+    private class StackIterator implements Iterator {
+
+        public boolean hasNext() { return top != -1; }
+
         public T next() {
-            if (!hasNext()) { 
-                throw new NoSuchElementException("Stack underflow"); 
-            }
-
-
-            return (T) elements.get(currentIndex--);
+            if(!hasNext()) throw new NoSuchElementException();
+            return stackArray[top--];
         }
+    }
+}
+
+class StackSizeLimitException
+        extends RuntimeException {
+    StackSizeLimitException(String errorMessage) {
+        super(errorMessage);
     }
 }
