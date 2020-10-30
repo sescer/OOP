@@ -2,7 +2,7 @@ package ru.nsu.fit.oop.boryapatrushev.stack;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-
+import java.lang.reflect.Array;
 /**
  * This class implements stack.
  *
@@ -12,7 +12,7 @@ public class Stack<T> implements Iterable {
 
     private final int maxSize;
     private int top = -1;
-    private final T[] stackArray;
+    private T[] stackArray;
 
     public Iterator iterator() { return new StackIterator();}
 
@@ -31,7 +31,8 @@ public class Stack<T> implements Iterable {
             stackArray[++top] = elem;
         }
         else {
-            throw new StackSizeLimitException("Stack is full!");
+            stackArray = Stack.doubleSize(stackArray);
+            stackArray[++top] = elem;
         }
     }
 
@@ -73,6 +74,20 @@ public class Stack<T> implements Iterable {
      */
     public int count() {
         return top + 1;
+    }
+
+    /**
+     * Double the size of a generic array
+     *
+     * @param <T> The array element type
+     * @param original The original array
+     *
+     * @return The new array, doubled in size
+     */
+    public static <T> T[] doubleSize(T[] original) {
+        T[] result = (T[]) Array.newInstance(original[0].getClass(), original.length * 2);
+        System.arraycopy(original, 0, result, 0, original.length);
+        return result;
     }
 
 

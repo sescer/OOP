@@ -1,7 +1,9 @@
 package ru.nsu.fit.oop.boryapatrushev.stack;
 
 import org.junit.Assert;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import java.util.Iterator;
 import static org.hamcrest.CoreMatchers.is;
@@ -147,34 +149,23 @@ public class StackTest {
         assertThat(stack.pop(), is(false));
         assertThat(stack.pop(), is(false));
     }
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
     @Test
     public void Test5() {
         Stack<Object> Stack = new Stack<>(1);
-
-        try {
-            Stack.pop();
-        }
-        catch (StackSizeLimitException e) {
-            return;
-        }
-
-        Assert.fail("\nExpected: stack is empty. In Fact: stack isn't empty");
+        exception.expect(StackSizeLimitException.class);
+        exception.expectMessage("Stack is empty");
+        Stack.pop();
     }
 
     @Test
     public void Test6() {
         Stack<Object> Stack = new Stack<>(2);
         Stack.push(1234);
-        Stack.push(1234);
-
-        try {
-            Stack.push(1234);
-        }
-        catch (StackSizeLimitException e) {
-            return;
-        }
-
-        Assert.fail("\nExpected: stack is full. In Fact: stack isn't full.");
+        Stack.push(1245);
+        assertThat(Stack.pop(), is(1245));
+        assertThat(Stack.pop(), is(1234));
     }
 
     @Test
