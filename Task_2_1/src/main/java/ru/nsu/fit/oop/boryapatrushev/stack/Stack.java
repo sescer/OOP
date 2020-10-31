@@ -31,7 +31,7 @@ public class Stack<T> implements Iterable {
             stackArray[++top] = elem;
         }
         else {
-            stackArray = Stack.doubleSize(stackArray);
+            stackArray =  doubleSize(stackArray);
             stackArray[++top] = elem;
         }
     }
@@ -78,13 +78,10 @@ public class Stack<T> implements Iterable {
 
     /**
      * Double the size of a generic array
-     *
-     * @param <T> The array element type
      * @param original The original array
-     *
      * @return The new array, doubled in size
      */
-    public static <T> T[] doubleSize(T[] original) {
+    private T[] doubleSize(T[] original) {
         T[] result = (T[]) Array.newInstance(original[0].getClass(), original.length * 2);
         System.arraycopy(original, 0, result, 0, original.length);
         return result;
