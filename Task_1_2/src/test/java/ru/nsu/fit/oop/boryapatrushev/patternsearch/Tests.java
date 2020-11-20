@@ -15,12 +15,12 @@ public class Tests {
     @Test
     public void test_1() throws Exception {
 
-        Collection answer = PatternSearch.findAllOccurrences("src/test/resources/test_1_1.txt", "пирог");
+        Collection answer = PatternSearch.findAllOccurrences("test_1_1.txt", "пирог");
         ArrayList<Integer> expected = new ArrayList<>();
         expected.add(7);
         Assert.assertEquals(answer, expected);
 
-        answer = PatternSearch.findAllOccurrences("src/test/resources/test_1_2.txt", "пирог");
+        answer = PatternSearch.findAllOccurrences("test_1_2.txt", "пирог");
         expected.clear();
         Assert.assertEquals(answer, expected);
     }
@@ -28,7 +28,7 @@ public class Tests {
     @Test
     public void test_2() throws Exception {
 
-        Collection answer = PatternSearch.findAllOccurrences("src/test/resources/test_2.txt", "java\r\nwant");
+        Collection answer = PatternSearch.findAllOccurrences("test_2.txt", "java\r\nwant");
         ArrayList<Integer> expected = new ArrayList<>();
         expected.add(21);
         expected.add(38);
@@ -39,25 +39,24 @@ public class Tests {
     @Test
     public void test_3() throws Exception {
 
-        Collection answer = PatternSearch.findAllOccurrences("src/test/resources/test_3.txt", "bruh");
+        Collection answer = PatternSearch.findAllOccurrences("test_3.txt", "bruh");
         ArrayList<Integer> expected = new ArrayList<>();
 
         Assert.assertEquals(answer, expected);
     }
-    @Ignore
+
     @Test
     public void test_4() throws Exception {
-
-        File gen = new File("src/test/resources/big.txt");
+        File gen = new File("src/test/resources/test_4.txt");
         BufferedWriter writer = new BufferedWriter(new FileWriter(gen));
-        for(long i = 0; i != 500000000L; i++) {
-            writer.write("pa");
+        for(long i = 0; i != 5000000L; i++) {
+            writer.write("ja");
         }
-        writer.close();
 
-        Collection answer = PatternSearch.findAllOccurrences("src/test/resources/big.txt", " ");
+        Collection answer = PatternSearch.findAllOccurrences(  "test_4.txt", "bruh");
         ArrayList<Integer> expected = new ArrayList<>();
         Assert.assertEquals(answer, expected);
+
         gen.delete();
     }
 

@@ -17,43 +17,43 @@ public class PatternSearch {
      */
     public static Collection<Integer> findAllOccurrences(String path, String substring) throws Exception {
 
-        String temp;
+        String halfstring;
         String string = null;
         int len = substring.length() * 2;
         int scanned = 0;
         ArrayList<Integer> output;
+        try (
+             InputStream inputStream = PatternSearch.class.getClassLoader().getResourceAsStream(path)) {
+            assert inputStream != null;
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader( inputStream, StandardCharsets.UTF_8))) {
 
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(path), StandardCharsets.UTF_8))) {
+                String pattern = new String(substring.getBytes(), StandardCharsets.UTF_8);
 
-            String pattern = new String(substring.getBytes(), StandardCharsets.UTF_8);
+                Set<Integer> answer = new HashSet<>();
 
-            Set<Integer> answer = new HashSet<>();
+                do {
+                    if (scanned == 0) {
+                        string = readFixedLengthString(len, reader);
+                    } else {
+                        halfstring = readFixedLengthString(len / 2, reader);
+                        string = string.substring(len / 2);
+                        string += halfstring;
+                    }
 
-            do {
-                if (scanned == 0) {
-                    string = readFixedLengthString(len, reader);
-                } else {
-                    temp = readFixedLengthString(len / 2, reader);
-                    string = string.substring(len / 2);
-                    string += temp;
-                }
+                    ArrayList<Integer> temRes = new ArrayList<>(findMatch(string, pattern));
+                    for (int i = 0; i != temRes.size(); i++)
+                        temRes.set(i, temRes.get(i) + scanned);
 
-                ArrayList<Integer> temp2 = new ArrayList<>(findMatch(string, pattern));
-                for (int i = 0; i != temp2.size(); i++)
-                    temp2.set(i, temp2.get(i) + scanned);
+                    answer.addAll(temRes);
+                    scanned += len / 2;
 
-                answer.addAll(temp2);
-                scanned += len / 2;
-
-            } while (!string.endsWith("\0"));
-
-            output = new ArrayList<>(answer);
-            output.sort(Integer::compareTo);
-
+                } while (!string.endsWith("\0"));
+                output = new ArrayList<>(answer);
+                output.sort(Integer::compareTo);
+            }
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
-
         return output;
     }
 
