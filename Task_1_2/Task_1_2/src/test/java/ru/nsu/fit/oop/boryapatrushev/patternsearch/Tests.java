@@ -3,6 +3,7 @@ package ru.nsu.fit.oop.boryapatrushev.patternsearch;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.Ignore;
 import org.junit.rules.ExpectedException;
 
 import java.io.File;
@@ -70,7 +71,7 @@ public class Tests {
         exception.expect(IllegalArgumentException.class);
         PatternSearch.findAllOccurrences("test_6.txt", "");
     }
-
+    @Ignore
     @Test
     public void test_7() throws Exception {
         String filePath = getFromResources("test_7.txt");
@@ -82,7 +83,7 @@ public class Tests {
                 "I witnessed your madness, you shed light on my sins ".repeat(42) +
                 "And if we share in this sadness, then where have you been? \n".repeat(42);
         List<Integer> expected = new ArrayList<>();
-        for (long i = 0; i < ( 1024 * 1024 / str.length()); i++) {
+        for (long i = 0; i < (int)( 20L * 1024 * 1024 * 1024 / str.length()); i++) {
             writer.write(str);
             expected.add((int)i * str.length());
         }
