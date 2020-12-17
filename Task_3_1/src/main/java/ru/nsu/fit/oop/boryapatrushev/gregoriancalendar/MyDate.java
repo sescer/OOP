@@ -22,11 +22,21 @@ public class MyDate implements Cloneable {
 
     /**
      * To check equality of current date with input one
-     * @param date - date to compare
      * @return true - if dates equal, otherwise - false.
      */
-    public boolean equals(MyDate date) {
-        return this.day == date.getDay() && this.month == date.getMonth() && this.year == date.getYear();
+    @Override
+    public boolean equals( Object obj) {
+        if (obj == null)
+            return false;
+        MyDate date = (MyDate) obj;
+        return (this.day == date.getDay() && this.month == date.getMonth() && this.year == date.getYear());
+    }
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + this.day + this.month + this.year;
+        return result;
     }
 
     /**
@@ -34,6 +44,7 @@ public class MyDate implements Cloneable {
      * @return MyDate - cloned date
      * @throws CloneNotSupportedException if cloning is not supported
      */
+    @Override
     public MyDate clone() throws CloneNotSupportedException {
         return (MyDate) super.clone();
     }
