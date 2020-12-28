@@ -4,20 +4,20 @@ class Credit {
     private final boolean isFinal;
     private final int mark;
 
-    Credit(boolean cred, boolean _final) {
+    Credit(boolean cred, boolean isFinal) {
         isMark = false;
         if (cred) {
             mark = 1;
         } else {
             mark = 0;
         }
-        isFinal = _final;
+        this.isFinal = isFinal;
     }
 
-    Credit(int _mark, boolean _final) {
+    Credit(int mark, boolean isFinal) {
         isMark = true;
-        mark = _mark;
-        isFinal = _final;
+        this.mark = mark;
+        this.isFinal = isFinal;
     }
 
     int getMark() {

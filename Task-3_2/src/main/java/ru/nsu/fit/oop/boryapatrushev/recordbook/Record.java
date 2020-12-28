@@ -12,17 +12,17 @@ public class Record {
      * Record of credit constructor. Has constant number of semesters
      *
      * @param semesters number of semesters in programme.
-     * @param _marksInDiploma number of marks that wil be in diploma. Can be changed later.
+     * @param marksInDiploma number of marks that wil be in diploma. Can be changed later.
      * @throws IllegalArgumentException if any argument is negative.
      */
-    public Record(int semesters, int _marksInDiploma) {
+    public Record(int semesters, int marksInDiploma) {
         if (semesters < 0) {
             throw new IllegalArgumentException("Negative  number of semesters doesn't exist");
         }
-        if (_marksInDiploma < 0) {
+        if (marksInDiploma < 0) {
             throw new IllegalArgumentException("Negative  number of marks in diploma doesn't exist");
         }
-        marksInDiploma = _marksInDiploma;
+        this.marksInDiploma = marksInDiploma;
         records = new ArrayList<>();
         for (int i = 0; i < semesters; i++) {
             records.add(new ArrayList<>());
