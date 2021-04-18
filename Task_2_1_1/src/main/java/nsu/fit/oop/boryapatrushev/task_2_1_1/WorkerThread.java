@@ -7,14 +7,16 @@ import java.util.concurrent.CountDownLatch;
  * Runnable class for one thread
  * Receives start and end indices for a gap to process in array
  */
-public class WorkerThread implements Runnable{
+public class WorkerThread implements Runnable {
     private final int start;
     private final int end;
     private final ArrayList<Long> arr;
     private final CountDownLatch latch;
-    public boolean answer;
+    private boolean answer;
 
-    public WorkerThread(int start, int end, ArrayList<Long> arr, CountDownLatch latch) {
+    public WorkerThread(final int start, final int end,
+                        final ArrayList<Long> arr,
+                        final CountDownLatch latch) {
 
         this.start = start;
         this.end = end;
@@ -22,19 +24,27 @@ public class WorkerThread implements Runnable{
         this.latch = latch;
     }
 
-    public boolean ShowAnswer() {
+    /**
+     * @return answer
+     */
+    public boolean showAnswer() {
         return this.answer;
     }
 
+    /**
+     * Override method run
+     */
     @Override
     public void run() {
-        System.out.println("Thread started " + Thread.currentThread().getName());
-        answer = Check();
+        System.out.println("Thread started "
+                + Thread.currentThread().getName());
+        answer = check();
         latch.countDown();
-        System.out.println("Thread finished " + Thread.currentThread().getName());
+        System.out.println("Thread finished "
+                + Thread.currentThread().getName());
     }
 
-    private boolean Check() {
+    private boolean check() {
 
         for (int i = start; i <= end; i++) {
             if (!IsPrime.prime(arr.get(i))) {

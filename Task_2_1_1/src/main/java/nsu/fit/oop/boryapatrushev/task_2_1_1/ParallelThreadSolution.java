@@ -5,14 +5,17 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+@SuppressWarnings("checkstyle:HideUtilityClassConstructor")
 public class ParallelThreadSolution {
     /**
      * ParallelThread solution
      * @param arr - array with preinitialized values
      * @param threadNo - total number of threads to create and process with
-     * @return true if array contains at least one non-prime number, otherwise - false
+     * @return true if array contains at least one non-prime number,
+     * otherwise - false
      */
-    public static boolean PrimeArray(ArrayList<Long> arr, int threadNo) {
+    public static boolean primeArray(final ArrayList<Long> arr,
+                                     final int threadNo) {
 
         CountDownLatch latch = new CountDownLatch(threadNo);
         ExecutorService executor = Executors.newFixedThreadPool(threadNo);
@@ -23,12 +26,13 @@ public class ParallelThreadSolution {
         int s = 0;
         int e = 0;
 
-        for(int i = 0; i != threadNo; i++) {
+        for (int i = 0; i != threadNo; i++) {
 
-            if(s + gap < len)
+            if (s + gap < len) {
                 e += gap;
-            else
+            } else {
                 e = len - 1;
+            }
 
             workers[i] = new WorkerThread(s, e, arr, latch);
             s = e;
@@ -46,9 +50,11 @@ public class ParallelThreadSolution {
             executor.shutdownNow();
         }
 
-                for(int i = 0; i!=workers.length; i++)
-            if(workers[i].ShowAnswer())
+        for (int i = 0; i != workers.length; i++) {
+            if (workers[i].showAnswer()) {
                 return true;
+            }
+        }
 
         return false;
     }

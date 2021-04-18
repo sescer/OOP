@@ -3,28 +3,33 @@ package nsu.fit.oop.boryapatrushev.task_2_1_1;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class Tests {
 
+    static final int NUM_OF_WAYS = 3;
+    static final int THREAD_NO = 8;
+
     private final ArrayList<Long> arr1 = new ArrayList<>(
-                Arrays.asList(6L,8L,7L,13L,9L,4L));
+                Arrays.asList(6L, 8L, 7L, 13L, 9L, 4L));
 
     private final ArrayList<Long> arr2 = new ArrayList<>(
             Arrays.asList(6997901L, 6997927L, 6997937L, 6997967L, 6998009L,
                     6998029L, 6998039L, 6998051L, 6998053L));
 
-    private ArrayList<Long> ReadFile(String path) throws FileNotFoundException {
+    private ArrayList<Long> readFile(final String path)
+            throws FileNotFoundException {
 
         Scanner input = new Scanner(new File(path));
         int cnt = input.nextInt();
         long num;
         ArrayList<Long> arr = new ArrayList<>();
 
-        for(int i = 0; i!= cnt; i++) {
+        for (int i = 0; i != cnt; i++) {
             num = input.nextLong();
             arr.add(num);
         }
@@ -32,15 +37,15 @@ public class Tests {
     }
 
     @Test
-    public void Test_1() {
+    public void test1() {
 
-        boolean[] answers = new boolean[3];
+        boolean[] answers = new boolean[NUM_OF_WAYS];
 
-        answers[0] = ConsistentSolution.PrimeArray(arr1);
-        answers[1] = ParallelThreadSolution.PrimeArray(arr1, 4);
-        answers[2] = ParallelStreamSolution.PrimeArray(arr1);
+        answers[0] = ConsistentSolution.primeArray(arr1);
+        answers[1] = ParallelThreadSolution.primeArray(arr1, THREAD_NO);
+        answers[2] = ParallelStreamSolution.primeArray(arr1);
 
-        for(int i = 0; i!= answers.length; i++) {
+        for (int i = 0; i != answers.length; i++) {
             try {
                 Assert.assertTrue(answers[i]);
             } catch (AssertionError e) {
@@ -50,15 +55,15 @@ public class Tests {
     }
 
     @Test
-    public void Test_2() {
+    public void test2() {
 
-        boolean[] answers = new boolean[3];
+        boolean[] answers = new boolean[NUM_OF_WAYS];
 
-        answers[0] = ConsistentSolution.PrimeArray(arr2);
-        answers[1] = ParallelThreadSolution.PrimeArray(arr2, 4);
-        answers[2] = ParallelStreamSolution.PrimeArray(arr2);
+        answers[0] = ConsistentSolution.primeArray(arr2);
+        answers[1] = ParallelThreadSolution.primeArray(arr2, THREAD_NO);
+        answers[2] = ParallelStreamSolution.primeArray(arr2);
 
-        for(int i = 0; i!= answers.length; i++) {
+        for (int i = 0; i != answers.length; i++) {
             try {
                 Assert.assertFalse(answers[i]);
             } catch (AssertionError e) {
@@ -68,8 +73,9 @@ public class Tests {
     }
 
 
-    // ----------------------------------------------------------------------------------------------
-    // Time results for sequential and parallel solutions are given below (intel i7 10510u - 4(8) cores)
+    // -------------------------------------------------------------
+    // Time results for sequential and parallel solutions are
+    // given below (intel i7 10510u - 4(8) cores)
     // Template of tests description:
     // [Time] - <optional>[NoThreads] ([Size of input array])
 
@@ -77,10 +83,10 @@ public class Tests {
     // Consistent solution
     // 4.364 (600)
     @Test
-    public void Test_3() throws FileNotFoundException {
+    public void test3() throws FileNotFoundException {
 
-        ArrayList<Long> arr = ReadFile("src/test/resources/primes.txt");
-        boolean answer = ConsistentSolution.PrimeArray(arr);
+        ArrayList<Long> arr = readFile("src/test/resources/primes.txt");
+        boolean answer = ConsistentSolution.primeArray(arr);
         Assert.assertFalse(answer);
     }
 
@@ -92,35 +98,37 @@ public class Tests {
     // 1.126 - 8 threads (600)
     // 1.14 - 20 threads (600)
     @Test
-    public void Test_4() throws FileNotFoundException {
+    public void test4() throws FileNotFoundException {
 
-        ArrayList<Long> arr = ReadFile("src/test/resources/primes.txt");
-        boolean answer = ParallelThreadSolution.PrimeArray(arr, 8);
+        ArrayList<Long> arr = readFile("src/test/resources/primes.txt");
+        boolean answer = ParallelThreadSolution.primeArray(arr, THREAD_NO);
         Assert.assertFalse(answer);
     }
 
     // Parallel solution using ParallelStream
     // 1.0 -  threads (600)
     @Test
-    public void Test_5() throws FileNotFoundException {
+    public void test5() throws FileNotFoundException {
 
-        ArrayList<Long> arr = ReadFile("src/test/resources/primes.txt");
-        boolean answer = ParallelStreamSolution.PrimeArray(arr);
+        ArrayList<Long> arr = readFile("src/test/resources/primes.txt");
+        boolean answer = ParallelStreamSolution.primeArray(arr);
         Assert.assertFalse(answer);
     }
 
 
-    // ----------------------------------------------------------------------------------------------
-    // Time results for sequential and parallel solutions are given below (intel i7 10510u - 4(8) cores)
+    // -------------------------------------------------------------
+    // Time results for sequential and parallel solutions are
+    // given below (intel i7 10510u - 4(8) cores)
 
 
     // Consistent solution
     // 20.802 (1000001)
     @Test
-    public void Test_6() throws FileNotFoundException {
+    public void test6() throws FileNotFoundException {
 
-        ArrayList<Long> arr = ReadFile("src/test/resources/povezlo_povezlo.txt");
-        boolean answer = ConsistentSolution.PrimeArray(arr);
+        ArrayList<Long> arr =
+                readFile("src/test/resources/povezlo_povezlo.txt");
+        boolean answer = ConsistentSolution.primeArray(arr);
         Assert.assertFalse(answer);
     }
 
@@ -135,10 +143,11 @@ public class Tests {
 
 
     @Test
-    public void Test_7() throws FileNotFoundException {
+    public void test7() throws FileNotFoundException {
 
-        ArrayList<Long> arr = ReadFile("src/test/resources/povezlo_povezlo.txt");
-        boolean answer = ParallelThreadSolution.PrimeArray(arr, 8);
+        ArrayList<Long> arr =
+                readFile("src/test/resources/povezlo_povezlo.txt");
+        boolean answer = ParallelThreadSolution.primeArray(arr, THREAD_NO);
         Assert.assertFalse(answer);
     }
 
@@ -146,10 +155,11 @@ public class Tests {
     // 5.334 -  threads (1000001)
 
     @Test
-    public void Test_8() throws FileNotFoundException {
+    public void test8() throws FileNotFoundException {
 
-        ArrayList<Long> arr = ReadFile("src/test/resources/povezlo_povezlo.txt");
-        boolean answer = ParallelStreamSolution.PrimeArray(arr);
+        ArrayList<Long> arr =
+                readFile("src/test/resources/povezlo_povezlo.txt");
+        boolean answer = ParallelStreamSolution.primeArray(arr);
         Assert.assertFalse(answer);
     }
 }
