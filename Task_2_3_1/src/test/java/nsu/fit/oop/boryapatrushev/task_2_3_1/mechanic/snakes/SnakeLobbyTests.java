@@ -14,7 +14,8 @@ public class SnakeLobbyTests {
      * Check tail
      */
     @Test
-    public void test_1() {
+    @SuppressWarnings("checkstyle:magicnumber")
+    public void test1() {
 
         playfield = new Playfield(1000, 1000, true);
         init();
@@ -29,7 +30,8 @@ public class SnakeLobbyTests {
      * Check kill
      */
     @Test
-    public void test_2() {
+    @SuppressWarnings("checkstyle:magicnumber")
+    public void test2() {
         playfield = new Playfield(880, 1000, true);
         init();
 

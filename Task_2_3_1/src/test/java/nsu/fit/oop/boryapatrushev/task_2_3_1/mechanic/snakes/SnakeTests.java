@@ -9,7 +9,8 @@ public class SnakeTests {
      * Check actual length
      */
     @Test
-    public void test_1() {
+    @SuppressWarnings("checkstyle:magicnumber")
+    public void test1() {
 
         Snake snake = new Snake(new Point(10, 10));
         snake.setUp();
@@ -24,7 +25,8 @@ public class SnakeTests {
      * Check self-intersection
      */
     @Test
-    public void test_2() {
+    @SuppressWarnings("checkstyle:magicnumber")
+    public void test2() {
 
         Snake snake = new Snake(new Point(0, 0));
         snake.setUp();

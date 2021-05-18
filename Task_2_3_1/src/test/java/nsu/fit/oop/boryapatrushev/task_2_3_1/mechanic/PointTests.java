@@ -9,7 +9,8 @@ public class PointTests {
      * Check translate method
      */
     @Test
-    public void test_1() {
+    @SuppressWarnings("checkstyle:magicnumber")
+    public void test1() {
 
         Point point = new Point(25, 7);
         Point testPoint = point.translate(10, 23);
@@ -21,18 +22,18 @@ public class PointTests {
      * Check equals method
      */
     @Test
-    public void test_2() {
+    public void test2() {
 
-        Point point_1 = new Point(1,2);
-        Point point_2 = new Point(2,1);
+        Point point1 = new Point(1, 2);
+        Point point2 = new Point(2, 1);
 
-        Assert.assertNotEquals(point_1, point_2);
+        Assert.assertNotEquals(point1, point2);
     }
     /**
      * Check equals method
      */
     @Test
-    public void test_3() {
+    public void test3() {
         Assert.assertEquals(2, 2);
     }
 }
