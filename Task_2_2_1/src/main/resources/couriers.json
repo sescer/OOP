@@ -1,0 +1,18 @@
+{
+  "List": [
+    {
+      "id": 3,
+      "name": "DeliveryClub",
+      "trunkCapacity": 2,
+      "timeConsumption": 5000,
+      "waitForOrder": 5000
+    },
+    {
+      "id": 3,
+      "name": "YandexEda",
+      "trunkCapacity": 2,
+      "timeConsumption": 5000,
+      "waitForOrder": 5000
+    }
+  ]
+}
