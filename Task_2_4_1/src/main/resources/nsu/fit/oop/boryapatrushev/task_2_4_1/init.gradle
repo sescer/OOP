@@ -1,0 +1,11 @@
+package nsu.fit.oop.boryapatrushev.task_2_4_1
+
+allprojects {
+
+    project.apply plugin: 'checkstyle'
+
+    checkstyle {
+        toolVersion = '8.32'
+        configFile = rootProject.file('src\\main\\resources\\nsu\\fit\\oop\\boryapatrushev\\task_2_4_1\\sun_checks.xml')
+    }
+}
