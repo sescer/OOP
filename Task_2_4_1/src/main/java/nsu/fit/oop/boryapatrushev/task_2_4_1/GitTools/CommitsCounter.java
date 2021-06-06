@@ -12,11 +12,10 @@ import java.util.ArrayList;
  * Class for counting commits every week from initial date
  */
 public class CommitsCounter {
-
+    private static final int WEEK = 7;
     private final RunCMD commandRunner;
     private final String date;
     private final String initialDate;
-    private final static int WEEK = 7;
     private final ArrayList<Pair<String, String>> datesToCheck = new ArrayList<>();
 
     /**
