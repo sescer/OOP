@@ -16,7 +16,7 @@ public class CommitsCounter {
     private final RunCMD commandRunner;
     private final String date;
     private final String initialDate;
-
+    private final static int WEEK = 7;
     private final ArrayList<Pair<String, String>> datesToCheck = new ArrayList<>();
 
     /**
@@ -29,14 +29,14 @@ public class CommitsCounter {
         this.initialDate = initialDate;
 
         DateTimeFormatter dtf = DateTimeFormatter.ISO_LOCAL_DATE;
-        date = dtf.format(LocalDate.now().minusDays(7));
+        date = dtf.format(LocalDate.now().minusDays(WEEK));
 
         LocalDate init = LocalDate.parse(initialDate);
         LocalDate cur = init;
 
         while (cur.isBefore(LocalDate.now())) {
 
-            cur = cur.plusDays(7);
+            cur = cur.plusDays(WEEK);
             if (cur.isAfter(LocalDate.now())) {
                 cur = LocalDate.now();
             }
