@@ -1,0 +1,40 @@
+plugins {
+    id 'groovy'
+    id 'java'
+    id 'application'
+    id "org.openjfx.javafxplugin" version "0.0.8"
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    maven { url 'https://repo.gradle.org/gradle/libs-releases-local'
+        artifactUrls 'https://repo.spring.io/plugins-release/'
+    }
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'commons-io:commons-io:2.6'
+
+    compile group: 'org.gradle', name: 'gradle-tooling-api', version: '6.2.2'
+
+    compile 'org.codehaus.groovy:groovy-all:3.0.3'
+
+    compile gradleApi()
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+javafx {
+    version = "13"
+    modules = [ 'javafx.base' ]
+}
+
+task runScript (dependsOn: 'classes', type: JavaExec) {
+    main = 'GradleFunctions'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+mainClassName = "nsu.fit.oop.boryapatrushev.task_2_4_1.Main"
